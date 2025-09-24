@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<A86ANU_kurzusfelvetel tanév="2025/26_I" egyetem="Miskolci Egyetem">
+    <hallgato>
+        <hnev>Énekes Szabolcs Dániel</hnev>
+        <szulev>2002</szulev>
+        <szak evf="5">Programtervező informatikus</szak>
+    </hallgato>
+
+    <kurzusok>
+        <kurzus id="A86ANU">
+            <kurzusnev>Adatkezelés XML-ben</kurzusnev>
+            <kredit>5</kredit>
+            <hely>In/202</hely>
+            <idopont>Szerda 8-10</idopont>
+            <oktato>Dr. Kovács László József</oktato>
+        </kurzus>
+            <kurzus id="A86ANU" jovahagyas="igen" nyelv="magyar">
+            <kurzusnev>Vállalati információs rendszerek fejlesztése</kurzusnev>
+            <kredit>5</kredit>
+            <hely>In/103</hely>
+            <idopont>Szerda 14-16</idopont>
+            <oktato>Dr. Sasvári Péter László</oktato>
+        </kurzus>
+            <kurzus id="A86ANU" jovahagyas="nem" nyelv="magyar">
+            <kurzusnev>Mesterséges intelligencia alapok</kurzusnev>
+            <kredit>5</kredit>
+            <hely>E32</hely>
+            <idopont>Kedd 10-12</idopont>
+            <oktato>Dr. Tamás Judit</oktato>
+            <oraado>Dr. Tamás Judit</oraado>
+        </kurzus>
+            <kurzus id="A86ANU">
+            <kurzusnev>Web technológiák 1</kurzusnev>
+            <kredit>5</kredit>
+            <hely>E5</hely>
+            <idopont>Hétfő 10-12</idopont>
+            <oktato>Dr. Agárdi Anita</oktato>
+            <oraado>Dr. Agárdi Anita</oraado>
+        </kurzus>
+    </kurzusok>
+
+</A86ANU_kurzusfelvetel>
