@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<konferencia>
+    <cím>Adatkezelés Konferencia 2025</cím>
+    <helyszín></helyszín>
+    <előadó>
+        <név>Dr. Nagy Ferenc</név>
+        <adószám>123456789-1-42</adószám>
+        <lakcím>3586 Sajóörös Jókai utca 37.</lakcím>
+    </előadó>
+    <dátum>2025.12.24</dátum>
+    <hallgatók>
+        <hallgató>
+            <név>Nagy Feró</név>
+            <lakcím>3580 Tiszaújváros Krisztina utca 44/a</lakcím>
+        </hallgató>
+        <hallgató>
+            <név>Papp Réka</név>
+            <lakcím>2536 Nyergesújfalu Illyés Gyula utca 19/b</lakcím>
+        </hallgató>
+        <hallgató>
+            <név>Énekes Szabolcs Dániel</név>
+            <lakcím>3565 Tiszalúc Lenke utca 12</lakcím>
+        </hallgató>
+    </hallgatók>
+
+</konferencia>
