@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<A86ANU_Vendeglatas>
+  <!-- ======================
+       ÉTTERMEK
+       ====================== -->
+  <Ettermek>
+    <Etterem fkod="ETT-0001">
+      <Nev>Minta Bisztró</Nev>
+      <Csillag>4</Csillag>
+      <Cim>
+        <Varos>Budapest</Varos>
+        <Utca>Fő utca</Utca>
+        <Hazszam>12</Hazszam>
+      </Cim>
+    </Etterem>
+    <Etterem fkod="ETT-0002">
+      <Nev>Dunaparti Étterem</Nev>
+      <Csillag>5</Csillag>
+      <Cim>
+        <Varos>Esztergom</Varos>
+        <Utca>Duna sor</Utca>
+        <Hazszam>3</Hazszam>
+      </Cim>
+    </Etterem>
+  </Ettermek>
+
+  <!-- ======================
+       FŐSZAKÁCSOK (E_F)
+       ====================== -->
+  <Foszakacsok>
+    <Foszakacs fkod="FSZ-1001" etterem_ref="ETT-0001">
+      <Nev>Kovács Béla</Nev>
+      <Eletkor>45</Eletkor>
+      <Vegzettseg>OKJ Szakács; Fine dining továbbképzés</Vegzettseg>
+    </Foszakacs>
+    <Foszakacs fkod="FSZ-1002" etterem_ref="ETT-0002">
+      <Nev>Nagy Júlia</Nev>
+      <Eletkor>39</Eletkor>
+      <Vegzettseg>Vendéglátó technikus; Nemzetközi cukrász kurzus</Vegzettseg>
+    </Foszakacs>
+  </Foszakacsok>
+
+  <!-- ======================
+       SZAKÁCSOK (E_Sz)
+       ====================== -->
+  <Szakacsok>
+    <Szakacs szkod="SZ-2001" etterem_ref="ETT-0001">
+      <Nev>Nagy Anna</Nev>
+      <Reszleg>Hidegkonyha</Reszleg>
+      <Vegzettseg>Szakács OKJ</Vegzettseg>
+    </Szakacs>
+    <Szakacs szkod="SZ-2002" etterem_ref="ETT-0001">
+      <Nev>Tóth Gergő</Nev>
+      <Reszleg>Melegkonyha</Reszleg>
+      <Vegzettseg>Szakács</Vegzettseg>
+    </Szakacs>
+    <Szakacs szkod="SZ-2003" etterem_ref="ETT-0002">
+      <Nev>Farkas Máté</Nev>
+      <Reszleg>Grill</Reszleg>
+      <Vegzettseg>Szakács</Vegzettseg>
+    </Szakacs>
+  </Szakacsok>
+
+  <!-- ======================
+       GYAKORNOKOK (E_Gy)
+       ====================== -->
+  <Gyakornokok>
+    <Gyakornok gykod="GY-3001" etterem_ref="ETT-0001">
+      <Nev>Szabó Péter</Nev>
+      <Gyakorlat>3 hónap</Gyakorlat>
+      <Vegzettseg>Vendéglátóipari technikum</Vegzettseg>
+    </Gyakornok>
+    <Gyakornok gykod="GY-3002" etterem_ref="ETT-0002">
+      <Nev>Kiss Dóra</Nev>
+      <Gyakorlat>2 hónap</Gyakorlat>
+      <Vegzettseg>Középfokú szakképzés</Vegzettseg>
+    </Gyakornok>
+  </Gyakornokok>
+
+  <!-- ======================
+       VENDÉGEK
+       ====================== -->
+  <Vendegek>
+    <Vendeg vkod="V-4001">
+      <Nev>Tóth Júlia</Nev>
+      <Eletkor>32</Eletkor>
+      <Cim>
+        <Varos>Debrecen</Varos>
+        <Utca>Kossuth utca</Utca>
+        <Hazszam>8</Hazszam>
+      </Cim>
+    </Vendeg>
+    <Vendeg vkod="V-4002">
+      <Nev>Oláh András</Nev>
+      <Eletkor>27</Eletkor>
+      <Cim>
+        <Varos>Szeged</Varos>
+        <Utca>Petőfi sétány</Utca>
+        <Hazszam>21</Hazszam>
+      </Cim>
+    </Vendeg>
+  </Vendegek>
+
+  <!-- ======================
+       RENDELÉSEK
+       ====================== -->
+  <Rendelesek>
+    <Rendeles id="R-5001" vendeg_ref="V-4001" etterem_ref="ETT-0001" letrehozas_datuma="2025-10-15">
+      <Tetelek>
+        <Tetel sorszam="1">
+          <Etel>Marhapofa burgonyapürével</Etel>
+          <Osszeg>6200</Osszeg>
+        </Tetel>
+        <Tetel sorszam="2">
+          <Etel>Csokoládé szuflé</Etel>
+          <Osszeg>2800</Osszeg>
+        </Tetel>
+      </Tetelek>
+      <Vegosszeg>9000</Vegosszeg>
+    </Rendeles>
+
+    <Rendeles id="R-5002" vendeg_ref="V-4002" etterem_ref="ETT-0002" letrehozas_datuma="2025-10-15">
+      <Tetelek>
+        <Tetel sorszam="1">
+          <Etel>Grillezett fogas citrusmártással</Etel>
+          <Osszeg>7200</Osszeg>
+        </Tetel>
+        <Tetel sorszam="2">
+          <Etel>Francia hagymaleves</Etel>
+          <Osszeg>2400</Osszeg>
+        </Tetel>
+        <Tetel sorszam="3">
+          <Etel>Somlói galuska</Etel>
+          <Osszeg>2600</Osszeg>
+        </Tetel>
+      </Tetelek>
+      <Vegosszeg>12200</Vegosszeg>
+    </Rendeles>
+  </Rendelesek>
+
+  <!-- ======================
+       KAPCSOLATOK (opcionális)
+       ====================== -->
+  <Kapcsolatok>
+    <!-- Étterem — Főszakács -->
+    <E_F etterem_ref="ETT-0001" foszakacs_ref="FSZ-1001"/>
+    <E_F etterem_ref="ETT-0002" foszakacs_ref="FSZ-1002"/>
+
+    <!-- Étterem — Szakács -->
+    <E_Sz etterem_ref="ETT-0001" szakacs_ref="SZ-2001"/>
+    <E_Sz etterem_ref="ETT-0001" szakacs_ref="SZ-2002"/>
+    <E_Sz etterem_ref="ETT-0002" szakacs_ref="SZ-2003"/>
+
+    <!-- Étterem — Gyakornok -->
+    <E_Gy etterem_ref="ETT-0001" gyakornok_ref="GY-3001"/>
+    <E_Gy etterem_ref="ETT-0002" gyakornok_ref="GY-3002"/>
+  </Kapcsolatok>
+</A86ANU_Vendeglatas>

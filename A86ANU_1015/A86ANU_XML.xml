@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Vendeglatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <etterem ekod="e1">
+        <nev>Trófea</nev>
+        <cim>
+            <varos>Budapest</varos>
+            <utca>Visegrádi</utca>
+            <hazszam>13</hazszam>
+        </cim>
+        <csillag>4</csillag>
+    </etterem>
+
+    <etterem ekod="e2">
+        <nev>Twentysix</nev>
+        <cim>
+            <varos>Budapest</varos>
+            <utca>Király</utca>
+            <hazszam>26</hazszam>
+        </cim>
+        <csillag>5</csillag>
+    </etterem>
+
+    <foszakacs fkod="f1" e_f="e1">
+        <nev>Gordon Ramsey</nev>
+        <eletkor>58</eletkor>
+        <vegzettseg>vendéglátoipari menedzsment képesítés</vegzettseg>
+    </foszakacs>
+
+    <foszakacs fkod="f2" e_f="e2">
+        <nev>Guy Ramsey Fieri</nev>
+        <eletkor>57</eletkor>
+        <vegzettseg>alapképzés</vegzettseg>
+        <vegzettseg>University of Nevada</vegzettseg>
+    </foszakacs>
+
+    <szakacs szkod="sz1" e_sz="e1">
+        <nev>Francesco Bellissimo</nev>
+        <reszleg>grill</reszleg>
+        <vegzettseg>kulináris művész</vegzettseg>
+    </szakacs>
+
+    <szakacs szkod="sz2" e_sz="e2">
+        <nev>Zsidai Roy</nev>
+        <reszleg>gasztronómiai menedzser</reszleg>
+        <vegzettseg>szakmai képzés</vegzettseg>
+    </szakacs>
+
+    <szakacs szkod="sz3" e_sz="e2">
+        <nev>Kovács Bence</nev>
+        <reszleg>melegkonyha</reszleg>
+        <vegzettseg>szakács szakképesítés</vegzettseg>
+        <vegzettseg>Budapesti Komplex Szakképzési Centrum Gundel Károly Vendéglátó és Turisztikai Technikum</vegzettseg>
+    </szakacs>
+
+    <gyakornok gykod="gy1" e_gy="e1">
+        <nev>Bordás Dávid</nev>
+        <gyakorlat>
+            <kezdete>2021.08.20.</kezdete>
+            <idotartama>2 hónap</idotartama>
+        </gyakorlat>
+        <muszak>Délelőtt</muszak>
+        <muszak>Este</muszak>
+    </gyakornok>
+
+    <gyakornok gykod="gy2" e_gy="e2">
+        <nev>Szilágyi István</nev>
+        <gyakorlat>
+            <kezdete>2021.06.01.</kezdete>
+            <idotartama>4 hónap</idotartama>
+        </gyakorlat>
+        <muszak>Délután</muszak>
+    </gyakornok>
+
+    <vendeg vkod="v1">
+        <nev>Énekes Szabolcs Dániel</nev>
+        <eletkor>23</eletkor>
+        <cim>
+            <varos>Tiszalúc</varos>
+            <utca>Lenke</utca>
+            <hazszam>12</hazszam>
+        </cim>
+    </vendeg>
+
+    <vendeg vkod="v2">
+        <nev>Papp Réka</nev>
+        <eletkor>21</eletkor>
+        <cim>
+            <varos>Nyergesújfalu</varos>
+            <utca>Illyés Gyula</utca>
+            <hazszam>19/b</hazszam>
+        </cim>
+    </vendeg>
+
+    <rendeles e_v_e="e1" e_v_v="e1">
+        <osszeg>9000</osszeg>
+        <etel>Rántott hús</etel>
+    </rendeles>
+
+    <rendeles e_v_e="e2" e_v_v="e1">
+        <osszeg>4000</osszeg>
+        <etel>Húsleves</etel>
+    </rendeles>
+
+    <rendeles e_v_e="e2" e_v_v="e2">
+        <osszeg>2000</osszeg>
+        <etel>Zsíros kenyér</etel>
+    </rendeles>
+</Vendeglatas>
