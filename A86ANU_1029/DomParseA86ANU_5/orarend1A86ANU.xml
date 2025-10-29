@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<A86ANU_orarend xmlns="DOMA86ANU">
+    <ora id="o01">
+        <típus>elmelet</típus>
+        <tárgy>Web technológiák 1</tárgy>
+        <nap>Hétfő</nap>
+        <tól>10</tól>
+        <ig>12</ig>
+        <helyszín>E5</helyszín>
+        <oktató>Dr. Agárdi Anita</oktató>
+        <szak>Programtervező informatikus BSc</szak>
+    </ora>
+    <ora id="o02">
+        <típus>gyakorlat</típus>
+        <tárgy>Web technológiák 1</tárgy>
+        <nap>Hétfő</nap>
+        <tól>14</tól>
+        <ig>16</ig>
+        <helyszín>L101</helyszín>
+        <oktató>Dr. Agárdi Anita</oktató>
+        <szak>Programtervező informatikus BSc</szak>
+    </ora>
+    <ora id="o03">
+        <típus>elmelet</típus>
+        <tárgy>Mesterséges intelligencia alapok</tárgy>
+        <nap>Kedd</nap>
+        <tól>10</tól>
+        <ig>12</ig>
+        <helyszín>E32</helyszín>
+        <oktató>Dr. Tamás Judit</oktató>
+        <szak>Programtervező informatikus BSc</szak>
+    </ora>
+    <ora id="o04">
+        <típus>gyakorlat</típus>
+        <tárgy>Mesterséges intelligencia alapok</tárgy>
+        <nap>Kedd</nap>
+        <tól>12</tól>
+        <ig>14</ig>
+        <helyszín>E32</helyszín>
+        <oktató>Fazekas Levente Áron</oktató>
+        <szak>Programtervező informatikus BSc</szak>
+    </ora>
+    <ora id="o05">
+        <típus>elmelet</típus>
+        <tárgy>Adatkezelés XML-ben</tárgy>
+        <nap>Szerda</nap>
+        <tól>8</tól>
+        <ig>10</ig>
+        <helyszín>A1/310</helyszín>
+        <oktató>Dr. Kovács László József</oktató>
+        <szak>Programtervező informatikus BSc</szak>
+    </ora>
+    <ora id="o06">
+        <típus>gyakorlat</típus>
+        <tárgy>Adatkezelés XML-ben</tárgy>
+        <nap>Szerda</nap>
+        <tól>10</tól>
+        <ig>12</ig>
+        <helyszín>L103</helyszín>
+        <oktató>Dr. Bednarik László</oktató>
+        <szak>Programtervező informatikus BSc</szak>
+    </ora>
+    <ora id="o07">
+        <típus>elmelet</típus>
+        <tárgy>Vállalati információs rendszerek fejlesztése</tárgy>
+        <nap>Szerda</nap>
+        <tól>14</tól>
+        <ig>16</ig>
+        <helyszín>L103</helyszín>
+        <oktató>Dr. Sasvári Péter László</oktató>
+        <szak>Programtervező informatikus BSc</szak>
+    </ora>
+    <ora id="o08">
+        <típus>gyakorlat</típus>
+        <tárgy>Vállalati információs rendszerek fejlesztése</tárgy>
+        <nap>Szerda</nap>
+        <tól>18</tól>
+        <ig>20</ig>
+        <helyszín>L103</helyszín>
+        <oktató>Dr. Sasvári Péter László</oktató>
+        <szak>Programtervező informatikus BSc</szak>
+    </ora>
+</A86ANU_orarend>
