@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<report>
+  <query id="1">
+    <elmelet>4</elmelet>
+    <gyakorlat>4</gyakorlat>
+  </query>
+  <query id="2">
+    <ora id="o05">
+      <targy>Adatkezelés XML-ben</targy>
+      <tol>8</tol>
+      <ig>10</ig>
+      <helyszin>A1/310</helyszin>
+    </ora>
+    <ora id="o06">
+      <targy>Adatkezelés XML-ben</targy>
+      <tol>10</tol>
+      <ig>12</ig>
+      <helyszin>In/103</helyszin>
+    </ora>
+    <ora id="o07">
+      <targy>Vállalati információs rendszerek fejlesztése</targy>
+      <tol>14</tol>
+      <ig>16</ig>
+      <helyszin>In/103</helyszin>
+    </ora>
+    <ora id="o08">
+      <targy>Vállalati információs rendszerek fejlesztése</targy>
+      <tol>18</tol>
+      <ig>20</ig>
+      <helyszin>In/103</helyszin>
+    </ora>
+  </query>
+  <query id="3">
+    <ora id="o07">
+      <helyszin>In/103</helyszin>
+      <nap>Szerda</nap>
+    </ora>
+    <ora id="o08">
+      <helyszin>In/103</helyszin>
+      <nap>Szerda</nap>
+    </ora>
+  </query>
+</report>

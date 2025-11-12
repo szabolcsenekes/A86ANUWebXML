@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="studentA86ANU.xsd">
+        <student id="1">
+            <keresztnev>Szabolcs Dániel</keresztnev>
+            <vezeteknev>Énekes</vezeteknev>
+            <becenev>Éenekes Junior</becenev>
+            <kor>23</kor>
+        </student>
+        <student id="2">
+            <keresztnev>Márk Attila</keresztnev>
+            <vezeteknev>Nagy</vezeteknev>
+            <becenev>Maci</becenev>
+            <kor>24</kor>
+        </student>
+        <student id="3">
+            <keresztnev>Réka</keresztnev>
+            <vezeteknev>Papp</vezeteknev>
+            <becenev>Papprika</becenev>
+            <kor>21</kor>
+        </student>
+</class>
