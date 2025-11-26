@@ -1,0 +1,39 @@
+{
+    "A86ANU_orarend": {
+        "ora": [
+            {
+                "targy": "Web technológiák 1",
+                "idopont": {
+                    "nap": "hétfő",
+                    "tol": 10,
+                    "ig": 12
+                },
+            "helyszin": "E5",
+            "oktato": "Dr. Agárdi Anita",
+            "szak": "G3BP1"
+            },
+                        {
+                "targy": "Mesterséges intelligencia alapok",
+                "idopont": {
+                    "nap": "kedd",
+                    "tol": 10,
+                    "ig": 12
+                },
+            "helyszin": "E32",
+            "oktato": "Fazekas Levente",
+            "szak": "G3BP1"
+            },
+                        {
+                "targy": "Adatkezelés XML-ben",
+                "idopont": {
+                    "nap": "szerda",
+                    "tol": 8,
+                    "ig": 10
+                },
+            "helyszin": "Inf. 203",
+            "oktato": "Dr. Kovács László",
+            "szak": "G3BP1"
+            }
+        ]
+    }
+}

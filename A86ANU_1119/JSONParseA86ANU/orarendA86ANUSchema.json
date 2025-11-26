@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OrarendNeptunkod schema",
+  "type": "object",
+  "properties": {
+    "NEPTUNKOD_orarend": {
+      "type": "object",
+      "properties": {
+        "ora": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "targy": { "type": "string" },
+              "idopont": {
+                "type": "object",
+                "properties": {
+                  "nap":   { "type": "string" },
+                  "tol":   { "type": "integer" },
+                  "ig":    { "type": "integer" }
+                },
+                "required": ["nap", "tol", "ig"],
+                "additionalProperties": false
+              },
+              "helyszin": { "type": "string" },
+              "oktato":   { "type": "string" },
+              "szak":     { "type": "string" }
+            },
+            "required": ["targy", "idopont", "helyszin", "oktato", "szak"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["ora"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["A86ANU_orarend"],
+  "additionalProperties": false
+}

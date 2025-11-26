@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<title>Neptunkód Órarend</title>
+<style>
+    body { font-family: Arial; padding: 20px; }
+    h2 { color: #003399; }
+    .block { 
+        margin-bottom: 18px; 
+        padding: 10px; 
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        width: 320px;
+    }
+    .field { font-weight: bold; color: #333; }
+</style>
+</head>
+
+<body>
+
+<h1>Neptunkód Órarend 2025</h1>
+
+<button onclick="loadJSON()">Órarend betöltése</button>
+
+<div id="output"></div>
+
+<script>
+function loadJSON() {
+    fetch("orarendA86ANU.json")
+        .then(response => response.json())
+        .then(data => {
+            const output = document.getElementById("output");
+            output.innerHTML = "";
+
+            const rootKey = Object.keys(data)[0];
+            const orarend = data[rootKey].ora;
+
+            orarend.forEach((ora, index) => {
+                let div = document.createElement("div");
+                div.className = "block";
+
+                div.innerHTML += `<div class='field'>Tárgy:</div> ${ora.targy}<br>`;
+                div.innerHTML += `<div class='field'>Helyszín:</div> ${ora.helyszin}<br>`;
+                div.innerHTML += `<div class='field'>Oktató:</div> ${ora.oktato}<br>`;
+                div.innerHTML += `<div class='field'>Szak:</div> ${ora.szak}<br><br>`;
+
+                div.innerHTML += `<div class='field'>Időpont:</div>`;
+                div.innerHTML += `Nap: ${ora.idopont.nap}<br>`;
+                div.innerHTML += `Tól: ${ora.idopont.tol}<br>`;
+                div.innerHTML += `Ig: ${ora.idopont.ig}<br>`;
+
+                output.appendChild(div);
+            });
+        })
+        .catch(err => {
+            alert("Hiba történt a JSON beolvasásakor!\n" + err);
+        });
+}
+</script>
+
+</body>
+</html>
