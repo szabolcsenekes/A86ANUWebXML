@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="file.xsl" type="hallgatoA86ANU.xsl"?>
+
+<class>
+    <student id="01">
+        <vezeteknev>Énekes</vezeteknev>
+        <keresztnev>Szabolcs Dániel</keresztnev>
+        <becenev>Énekes Junior</becenev>
+        <kor>23</kor>
+        <osztondij>30000</osztondij>
+    </student>
+
+    <student id="02">
+        <vezeteknev>Papp</vezeteknev>
+        <keresztnev>Réka</keresztnev>
+        <becenev>Papprika</becenev>
+        <kor>21</kor>
+        <osztondij>76000</osztondij>
+    </student>
+
+    <student id="03">
+        <vezeteknev>Nagy</vezeteknev>
+        <keresztnev>Márk Attila</keresztnev>
+        <becenev>Maci</becenev>
+        <kor>24</kor>
+        <osztondij>15000</osztondij>
+    </student>
+</class>
