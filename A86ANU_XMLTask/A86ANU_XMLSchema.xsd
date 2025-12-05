@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+    ============================
+    XML SÉMA (XSD)
+    Autókölcsönző nyilvántartás
+    Készült: A86ANU
+    ============================
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified">
+
+
+
+    <!-- 
+        ============================
+        EGYSZERŰ TÍPUSOK (pattern)
+        ============================
+    -->
+
+        <!-- Kód típus: általános azonosítókhoz -->
+    <xs:simpleType name="kodType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z0-9]{3,10}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+        <!-- Rendszám formátum: ABC-123 -->
+    <xs:simpleType name="rendszamType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z]{3}-[0-9]{3}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+
+        <!-- 
+        ============================
+        KOMPLEX TÍPUSOK
+        Ezek definiálják az elemek szerkezetét
+        ============================
+    -->
+
+        <!-- Ügyfél neve összetett adat -->
+    <xs:complexType name="nevType">
+        <xs:sequence>
+            <xs:element name="vezeteknev" type="xs:string" />
+            <xs:element name="keresztnev" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+        <!-- Cím összetett adat -->
+    <xs:complexType name="cimType">
+        <xs:sequence>
+            <xs:element name="varos" type="xs:string" />
+            <xs:element name="utca" type="xs:string" />
+            <xs:element name="hazszam" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+        <!-- Ügyfél típusa -->
+    <xs:complexType name="ugyfelType">
+        <xs:sequence>
+            <xs:element name="nev" type="nevType" />
+            <xs:element name="szemelyi_szam" type="xs:string" />
+            <xs:element name="telefon" type="xs:string" />
+            <xs:element name="emailek">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="email" type="xs:string" maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="ukod" type="xs:ID" use="required" />
+    </xs:complexType>
+
+        <!-- Bérletkártya -->
+    <xs:complexType name="berletkartyaType">
+        <xs:sequence>
+            <xs:element name="kartyaszam" type="xs:string" />
+            <xs:element name="kiadas_datuma" type="xs:date" />
+            <xs:element name="ervenyes_eddig" type="xs:date" />
+            <xs:element name="allapot" type="xs:string" />
+        </xs:sequence>
+        <xs:attribute name="bkod" type="xs:ID" use="required" />
+        <xs:attribute name="ukodref" type="xs:IDREF" use="required" />
+    </xs:complexType>
+
+        <!-- Márka -->
+    <xs:complexType name="markaType">
+        <xs:sequence>
+            <xs:element name="nev" type="xs:string" />
+            <xs:element name="modell" type="xs:string" />
+            <xs:element name="kategoria" type="xs:string" />
+            <xs:element name="garancia_ev" type="xs:int" />
+            <xs:element name="szarmazasi_orszag" type="xs:string" />
+        </xs:sequence>
+        <xs:attribute name="mkod" type="xs:ID" use="required" />
+    </xs:complexType>
+
+        <!-- Telephely -->
+    <xs:complexType name="telephelyType">
+        <xs:sequence>
+            <xs:element name="nev" type="xs:string" />
+            <xs:element name="telefon" type="xs:string" />
+            <xs:element name="cim" type="cimType" />
+        </xs:sequence>
+        <xs:attribute name="tkod" type="xs:ID" use="required" />
+    </xs:complexType>
+
+        <!-- Autó -->
+    <xs:complexType name="autoType">
+        <xs:sequence>
+            <xs:element name="rendszam" type="rendszamType" />
+            <xs:element name="tipus" type="xs:string" />
+            <xs:element name="evjarat" type="xs:int" />
+            <xs:element name="ar_naponta" type="xs:int" />
+        </xs:sequence>
+        <xs:attribute name="akod" type="xs:ID" use="required" />
+        <xs:attribute name="mkodref" type="xs:IDREF" use="required" />
+        <xs:attribute name="tkodref" type="xs:IDREF" use="required" />
+    </xs:complexType>
+
+        <!-- Bérlés -->
+    <xs:complexType name="berlesType">
+        <xs:sequence>
+            <xs:element name="datum">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="tol" type="xs:date" />
+                        <xs:element name="ig" type="xs:date" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="osszeg" type="xs:int" />
+            <xs:element name="biztositas_tipus" type="xs:string" />
+        </xs:sequence>
+
+        <xs:attribute name="brid" type="xs:ID" use="required" />
+        <xs:attribute name="ukodref" type="xs:IDREF" use="required" />
+        <xs:attribute name="akodref" type="xs:IDREF" use="required" />
+    </xs:complexType>
+
+
+        <!-- 
+        ============================
+        GYŰJTŐ TÍPUSOK (LISTÁK)
+        ============================
+    -->
+
+    <xs:complexType name="ugyfelekType">
+        <xs:sequence>
+            <xs:element name="ugyfel" type="ugyfelType" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="berletkartyakType">
+        <xs:sequence>
+            <xs:element name="berletkartya" type="berletkartyaType" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="markakType">
+        <xs:sequence>
+            <xs:element name="marka" type="markaType" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="telephelyekType">
+        <xs:sequence>
+            <xs:element name="telephely" type="telephelyType" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="autokType">
+        <xs:sequence>
+            <xs:element name="auto" type="autoType" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="berlesekType">
+        <xs:sequence>
+            <xs:element name="berles" type="berlesType" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- 
+        ============================
+        GYÖKÉRELEM DEFINÍCIÓJA
+        ============================
+    -->
+
+    <xs:element name="autokolcsonzo">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ugyfelek" type="ugyfelekType" />
+                <xs:element name="berletkartyak" type="berletkartyakType" />
+                <xs:element name="markak" type="markakType" />
+                <xs:element name="telephelyek" type="telephelyekType" />
+                <xs:element name="autok" type="autokType" />
+                <xs:element name="berlesek" type="berlesekType" />
+            </xs:sequence>
+        </xs:complexType>
+
+        <!-- 
+        ============================
+        ELSŐDLEGES KULCSOK
+        ============================
+    -->
+
+        <!-- Ügyfél PK -->
+        <xs:key name="ugyfel_kulcs">
+            <xs:selector xpath="ugyfelek/ugyfel" />
+            <xs:field xpath="@ukod" />
+        </xs:key>
+
+        <!-- Autó PK-->
+        <xs:key name="auto_kulcs">
+            <xs:selector xpath="autok/auto" />
+            <xs:field xpath="@akod" />
+        </xs:key>
+
+        <!-- Telephely PK-->
+        <xs:key name="telephely_kulcs">
+            <xs:selector xpath="telephelyek/telephely" />
+            <xs:field xpath="@tkod" />
+        </xs:key>
+
+        <!-- Márka PK-->
+        <xs:key name="marka_kulcs">
+            <xs:selector xpath="markak/marka" />
+            <xs:field xpath="@mkod" />
+        </xs:key>
+
+        <!-- Bérlet kártya PK-->
+        <xs:key name="berletkartya_kulcs">
+            <xs:selector xpath="berletkartyak/berletkartya" />
+            <xs:field xpath="@bkod" />
+        </xs:key>
+
+        <!-- Bérlés PK-->
+        <xs:key name="berles_kulcs">
+            <xs:selector xpath="berlesek/berles" />
+            <xs:field xpath="@brid" />
+        </xs:key>
+
+        <!-- 
+        ============================
+        IDEGEN KULCSOK
+        ============================
+    -->
+        <xs:keyref refer="ugyfel_kulcs" name="berletkartya_ugyfel_idegen_kulcs">
+            <xs:selector xpath="berletkartyak/berletkartya" />
+            <xs:field xpath="@ukodref" />
+        </xs:keyref>
+
+        <xs:keyref refer="marka_kulcs" name="auto_marka_idegen_kulcs">
+            <xs:selector xpath="autok/auto" />
+            <xs:field xpath="@mkodref" />
+        </xs:keyref>
+
+        <xs:keyref refer="telephely_kulcs" name="auto_telephely_idegen_kulcs">
+            <xs:selector xpath="autok/auto" />
+            <xs:field xpath="@tkodref" />
+        </xs:keyref>
+
+        <xs:keyref refer="ugyfel_kulcs" name="berles_ugyfel_idegen_kulcs">
+            <xs:selector xpath="berlesek/berles" />
+            <xs:field xpath="@ukodref" />
+        </xs:keyref>
+
+        <xs:keyref refer="auto_kulcs" name="berles_auto_idegen_kulcs">
+            <xs:selector xpath="berlesek/berles" />
+            <xs:field xpath="@akodref" />
+        </xs:keyref>
+
+        <!-- 
+
+        ============================
+        EGYEDI MEGSZORÍTÁSOK
+        ============================
+    -->
+
+        <xs:unique name="egy_ugyfel_egy_kartya">
+            <xs:selector xpath="berletkartyak/berletkartya" />
+            <xs:field xpath="@ukodref" />
+        </xs:unique>
+    </xs:element>
+
+</xs:schema>

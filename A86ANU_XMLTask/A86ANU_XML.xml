@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+    ============================
+    XML ADATDOKUMENTUM
+    Autókölcsönző nyilvántartás
+    Készült: A86ANU
+    ============================
+-->
+
+<autokolcsonzo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="A86ANU_XMLSchema.xsd">
+
+    <!-- 
+        ============================
+        ÜGYFELEK LISTÁJA
+        Több ügyfél tartozhat a rendszerhez
+        Minden ügyfél ukod értékkel azonosított
+        ============================
+    -->
+    <ugyfelek>
+
+        <!-- Egy ügyfél adatai -->
+        <ugyfel ukod="U001">
+            <nev>
+                <vezeteknev>Kiss</vezeteknev>
+                <keresztnev>János</keresztnev>
+            </nev>
+            <szemelyi_szam>123456AB</szemelyi_szam>
+            <telefon>06201234567</telefon>
+
+            <!-- Többértékű adat: több email cím is lehet -->
+            <emailek>
+                <email>janos.kiss@gmailcom</email>
+                <email>j.kiss@munkahely.hu</email>
+            </emailek>
+        </ugyfel>
+
+        <!-- Második ügyfél -->
+        <ugyfel ukod="U002">
+            <nev>
+                <vezeteknev>Nagy</vezeteknev>
+                <keresztnev>Anna</keresztnev>
+            </nev>
+            <szemelyi_szam>987654CD</szemelyi_szam>
+            <telefon>06301112233</telefon>
+            <emailek>
+                <email>anna.nagy@citromail.hu</email>
+            </emailek>
+        </ugyfel>
+
+        <!-- Harmadik ügyfél -->
+         <ugyfel ukod="U003">
+            <nev>
+                <vezeteknev>Szabó</vezeteknev>
+                <keresztnev>Gábor</keresztnev>
+            </nev>
+            <szemelyi_szam>456789EF</szemelyi_szam>
+            <telefon>06709876543</telefon>
+            <emailek>
+                <email>szabo.gabor@freemail.hu</email>
+                <email>gabor.sz@gmail.com</email>
+            </emailek>
+        </ugyfel>
+
+        <!-- Negyedik ügyfél-->
+            <ugyfel ukod="U004">
+                <nev>
+                    <vezeteknev>Tóth</vezeteknev>
+                    <keresztnev>Éva</keresztnev>
+                </nev>
+                <szemelyi_szam>321654GH</szemelyi_szam>
+                <telefon>06501234567</telefon>
+                <emailek>
+                    <email>totheva@yahoo.com</email>
+                </emailek>
+            </ugyfel>
+
+    </ugyfelek>
+
+
+    <!-- 
+        ============================
+        BÉRLETKÁRTYÁK
+        Kapcsolat: 1 ügyfél → N kártya
+        ukodref az Ügyfélre mutat
+        ============================
+    -->
+    <berletkartyak>
+
+        <berletkartya bkod="B001" ukodref="U001">
+            <kartyaszam>11112222</kartyaszam>
+            <kiadas_datuma>2024-01-01</kiadas_datuma>
+            <ervenyes_eddig>2026-01-01</ervenyes_eddig>
+            <allapot>ervenyes</allapot>
+        </berletkartya>
+
+        <berletkartya bkod="B002" ukodref="U002">
+            <kartyaszam>33334444</kartyaszam>
+            <kiadas_datuma>2024-03-01</kiadas_datuma>
+            <ervenyes_eddig>2026-03-01</ervenyes_eddig>
+            <allapot>felfuggesztve</allapot>
+        </berletkartya>
+
+        <berletkartya bkod="B004" ukodref="U003">
+            <kartyaszam>55556666</kartyaszam>
+            <kiadas_datuma>2024-05-15</kiadas_datuma>
+            <ervenyes_eddig>2026-12-31</ervenyes_eddig>
+            <allapot>ervenyes</allapot>
+        </berletkartya>
+
+        <berletkartya bkod="B005" ukodref="U004">
+            <kartyaszam>77778888</kartyaszam>
+            <kiadas_datuma>2024-04-10</kiadas_datuma>
+            <ervenyes_eddig>2025-04-10</ervenyes_eddig>
+            <allapot>lejart</allapot>
+        </berletkartya>
+
+    </berletkartyak>
+
+
+    <!-- 
+        ============================
+        MÁRKÁK
+        Ezekre hivatkozik az <auto> @mkodref
+        ============================
+    -->
+    <markak>
+
+        <marka mkod="M001">
+            <nev>Toyota</nev>
+            <modell>Corolla</modell>
+            <kategoria>kompakt</kategoria>
+            <garancia_ev>3</garancia_ev>
+            <szarmazasi_orszag>Japan</szarmazasi_orszag>
+        </marka>
+
+        <marka mkod="M002">
+            <nev>Ford</nev>
+            <modell>Focus</modell>
+            <kategoria>kompakt</kategoria>
+            <garancia_ev>2</garancia_ev>
+            <szarmazasi_orszag>USA</szarmazasi_orszag>
+        </marka>
+
+        <marka mkod="M003">
+            <nev>Volkswagen</nev>
+            <modell>Golf</modell>
+            <kategoria>szemelyauto</kategoria>
+            <garancia_ev>4</garancia_ev>
+            <szarmazasi_orszag>Nemetorszag</szarmazasi_orszag>
+        </marka>
+
+        <marka mkod="M004">
+            <nev>Honda</nev>
+            <modell>Civic</modell>
+            <kategoria>kompakt</kategoria>
+            <garancia_ev>3</garancia_ev>
+            <szarmazasi_orszag>Japan</szarmazasi_orszag>
+        </marka>
+
+        <marka mkod="M005">
+            <nev>Chevrolet</nev>
+            <modell>Corvette</modell>
+            <kategoria>sportauto</kategoria>
+            <garancia_ev>1</garancia_ev>
+            <szarmazasi_orszag>USA</szarmazasi_orszag>
+        </marka>
+
+        <marka mkod="M006">
+            <nev>Ford</nev>
+            <modell>Transit</modell>
+            <kategoria>kishaszongepjarmu</kategoria>
+            <garancia_ev>7</garancia_ev>
+            <szarmazasi_orszag>USA</szarmazasi_orszag>
+        </marka>
+
+    </markak>
+
+
+    <!-- 
+        ============================
+        TELEPHELYEK
+        Ezekre hivatkozik az <auto> @tkodref
+        ============================
+    -->
+    <telephelyek>
+
+        <telephely tkod="T001">
+            <nev>Belvárosi telephely</nev>
+            <telefon>061234567</telefon>
+            <cim>
+                <varos>Budapest</varos>
+                <utca>Fő utca</utca>
+                <hazszam>10</hazszam>
+            </cim>
+        </telephely>
+
+        <telephely tkod="T002">
+            <nev>Külső telephely</nev>
+            <telefon>061112233</telefon>
+            <cim>
+                <varos>Budapest</varos>
+                <utca>Külső sor</utca>
+                <hazszam>5</hazszam>
+            </cim>
+        </telephely>
+
+        <telephely tkod="T003">
+            <nev>Vidék telephely</nev>
+            <telefon>0620456789</telefon>
+            <cim>
+                <varos>Tiszaújváros</varos>
+                <utca>Krisztina utca</utca>
+                <hazszam>44/a</hazszam>
+            </cim>
+        </telephely>
+
+        <telephely tkod="T004">
+            <nev>Debreceni telephely</nev>
+            <telefon>06301234567</telefon>
+            <cim>
+                <varos>Debrecen</varos>
+                <utca>Piac utca</utca>
+                <hazszam>12</hazszam>
+            </cim>
+        </telephely>
+
+        <telephely tkod="T005">
+            <nev>Dunántúli telephely</nev>
+            <telefon>06203216543</telefon>
+            <cim>
+                <varos>Sopron</varos>
+                <utca>Ady endre út</utca>
+                <hazszam>3</hazszam>
+            </cim>
+        </telephely>
+
+    </telephelyek>
+
+
+    <!-- 
+        ============================
+        AUTÓK
+        Kapcsolatok:
+        - @mkodref → márka
+        - @tkodref → telephely
+        ============================
+    -->
+    <autok>
+
+        <auto akod="A001" mkodref="M001" tkodref="T001">
+            <rendszam>ABC-123</rendszam>
+            <tipus>szemelyauto</tipus>
+            <evjarat>2020</evjarat>
+            <ar_naponta>15000</ar_naponta>
+        </auto>
+
+        <auto akod="A002" mkodref="M002" tkodref="T002">
+            <rendszam>XYZ-789</rendszam>
+            <tipus>szemelyauto</tipus>
+            <evjarat>2022</evjarat>
+            <ar_naponta>18000</ar_naponta>
+        </auto>
+
+        <auto akod="A003" mkodref="M003" tkodref="T003">
+            <rendszam>DEF-456</rendszam>
+            <tipus>szemelyauto</tipus>
+            <evjarat>2019</evjarat>
+            <ar_naponta>16000</ar_naponta>
+        </auto>
+
+        <auto akod="A004" mkodref="M004" tkodref="T004">
+            <rendszam>GHI-321</rendszam>
+            <tipus>szemelyauto</tipus>
+            <evjarat>2021</evjarat>
+            <ar_naponta>17000</ar_naponta>
+        </auto>
+
+        <auto akod="A005" mkodref="M005" tkodref="T001">
+            <rendszam>JKL-654</rendszam>
+            <tipus>sportauto</tipus>
+            <evjarat>2023</evjarat>
+            <ar_naponta>30000</ar_naponta>
+        </auto>
+
+    </autok>
+
+
+    <!-- 
+        ============================
+        BÉRLÉSEK (N:M kapcsolat)
+        Kapcsolatok:
+        - ukodref → ügyfél
+        - akodref → autó
+        A kapcsolat saját attribútumokkal rendelkezik
+        ============================
+    -->
+    <berlesek>
+
+        <berles brid="BR001" ukodref="U001" akodref="A001">
+            <datum>
+                <tol>2024-05-01</tol>
+                <ig>2024-05-05</ig>
+            </datum>
+            <osszeg>75000</osszeg>
+            <biztositas_tipus>teljes</biztositas_tipus>
+        </berles>
+
+        <berles brid="BR002" ukodref="U002" akodref="A002">
+            <datum>
+                <tol>2024-06-10</tol>
+                <ig>2024-06-12</ig>
+            </datum>
+            <osszeg>42000</osszeg>
+            <biztositas_tipus>alap</biztositas_tipus>
+        </berles>
+
+        <berles brid="BR003" ukodref="U003" akodref="A003">
+            <datum>
+                <tol>2024-07-15</tol>
+                <ig>2024-07-20</ig>
+            </datum>
+            <osszeg>80000</osszeg>
+            <biztositas_tipus>teljes</biztositas_tipus>
+        </berles>
+
+        <berles brid="BR004" ukodref="U004" akodref="A003">
+            <datum>
+                <tol>2024-08-05</tol>
+                <ig>2024-08-10</ig>
+            </datum>
+            <osszeg>80000</osszeg>
+            <biztositas_tipus>alap</biztositas_tipus>  
+        </berles>
+
+    </berlesek>
+
+</autokolcsonzo>
