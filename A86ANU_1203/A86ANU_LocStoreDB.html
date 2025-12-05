@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>A86ANU Hallgatók</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f2f2f2;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 6px 8px;
+            margin-top: 2px;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+        }
+
+        .col-half {
+            flex: 1 1 45%;
+            min-width: 180px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-success { background: #4caf50; color: #fff; }
+        .btn-secondary { background: #777; color: #fff; }
+        .btn-primary { background: #2196f3; color: #fff; }
+        .btn-info { background: #00bcd4; color: #fff; }
+        .btn-danger { background: #f44336; color: #fff; }
+
+        .btn + .btn { margin-left: 6px; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 6px 8px;
+            text-align: left;
+        }
+
+        thead {
+            background: #eee;
+        }
+
+        @media (max-width: 600px) {
+            .col-half {
+                flex: 1 1 100%;
+            }
+        }
+
+        small {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <h1>NEPTUNKOD Hallgatók</h1>
+
+    <!-- a.) Form + Mentés -->
+    <div class="card">
+        <h3>Új hallgató hozzáadása / módosítása</h3>
+        <form id="studentForm">
+            <input type="hidden" id="editIndex" value="-1">
+
+            <div class="row">
+                <div class="col-half">
+                    <label for="name">Név:</label>
+                    <input type="text" id="name" required>
+                </div>
+
+                <div class="col-half">
+                    <label for="year">Évfolyam:</label>
+                    <input type="number" id="year" min="1" max="10" required>
+                </div>
+
+                <div class="col-half">
+                    <label for="major">Szak:</label>
+                    <input type="text" id="major" placeholder="PTI" required>
+                </div>
+
+                <div class="col-half">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+
+                <div class="col-half">
+                    <label for="neptun">NEPTUN kód:</label>
+                    <input type="text" id="neptun" placeholder="AAA123" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Mentés</button>
+            <button type="button" id="cancelEdit" class="btn btn-secondary hidden">Mégse</button>
+        </form>
+    </div>
+
+    <!-- b.) Keresés + c.) Rendezés -->
+    <div class="card">
+        <h3>Keresés és rendezés</h3>
+
+        <label for="search">Keresés (név, évfolyam, szak, email, NEPTUN):</label>
+        <input type="text" id="search" placeholder="írj be valamit...">
+
+        <label for="sort">Rendezés:</label>
+        <select id="sort">
+            <option value="none">Nincs rendezés</option>
+            <option value="name_asc">Név (A → Z)</option>
+            <option value="name_desc">Név (Z → A)</option>
+            <option value="year_asc">Évfolyam (növekvő)</option>
+            <option value="year_desc">Évfolyam (csökkenő)</option>
+        </select>
+    </div>
+
+    <!-- d.) Export / Import JSON -->
+    <div class="card">
+        <h3>Export / Import JSON</h3>
+        <button id="exportJson" class="btn btn-primary">Export JSON</button>
+        <br>
+        <label for="importJson" style="margin-top:10px;">Import JSON:</label>
+        <input type="file" id="importJson" accept="application/json">
+        <br>
+        <small id="importInfo">Nincs fájl kiválasztva</small>
+    </div>
+
+    <!-- e.) Hallgatók listája -->
+    <div class="card">
+        <h3>Hallgatók listája</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Név</th>
+                    <th>Évfolyam</th>
+                    <th>Szak</th>
+                    <th>Email</th>
+                    <th>NEPTUN</th>
+                    <th>Műveletek</th>
+                </tr>
+            </thead>
+            <tbody id="studentTableBody">
+                <!-- JS tölti fel -->
+            </tbody>
+        </table>
+    </div>
+
+<script>
+    const STORAGE_KEY = 'neptunkod_hallgatok';
+
+    function loadStudents() {
+        const data = localStorage.getItem(STORAGE_KEY);
+        if (!data) return [];
+        try {
+            return JSON.parse(data);
+        } catch (e) {
+            console.error('Hibás JSON a localStorage-ban', e);
+            return [];
+        }
+    }
+
+    function saveStudents(students) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(students));
+    }
+
+    function renderTable() {
+        const tbody = document.getElementById('studentTableBody');
+        tbody.innerHTML = '';
+
+        let students = loadStudents();
+
+        // keresés
+        const text = document.getElementById('search').value.toLowerCase().trim();
+        if (text !== '') {
+            students = students.filter(s =>
+                s.name.toLowerCase().includes(text) ||
+                String(s.year).includes(text) ||
+                s.major.toLowerCase().includes(text) ||
+                s.email.toLowerCase().includes(text) ||
+                s.neptun.toLowerCase().includes(text)
+            );
+        }
+
+        // rendezés
+        const sort = document.getElementById('sort').value;
+        if (sort !== 'none') {
+            students.sort((a, b) => {
+                switch (sort) {
+                    case 'name_asc':  return a.name.localeCompare(b.name, 'hu');
+                    case 'name_desc': return b.name.localeCompare(a.name, 'hu');
+                    case 'year_asc':  return a.year - b.year;
+                    case 'year_desc': return b.year - a.year;
+                    default: return 0;
+                }
+            });
+        }
+
+        students.forEach((s, idx) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${s.name}</td>
+                <td>${s.year}</td>
+                <td>${s.major}</td>
+                <td>${s.email}</td>
+                <td>${s.neptun}</td>
+                <td>
+                    <button class="btn btn-info" data-action="edit" data-index="${idx}">Módosít</button>
+                    <button class="btn btn-danger" data-action="delete" data-index="${idx}">Töröl</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    document.getElementById('studentForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const name   = document.getElementById('name').value.trim();
+        const year   = parseInt(document.getElementById('year').value, 10);
+        const major  = document.getElementById('major').value.trim();
+        const email  = document.getElementById('email').value.trim();
+        const neptun = document.getElementById('neptun').value.trim();
+        const editIndex = parseInt(document.getElementById('editIndex').value, 10);
+
+        if (!name || !year || !major || !email || !neptun) {
+            alert('Minden mező kitöltése kötelező!');
+            return;
+        }
+
+        let students = loadStudents();
+        const obj = { name, year, major, email, neptun };
+
+        if (editIndex >= 0) {
+            students[editIndex] = obj;
+        } else {
+            students.push(obj);
+        }
+
+        saveStudents(students);
+        clearForm();
+        renderTable();
+    });
+
+    function clearForm() {
+        document.getElementById('studentForm').reset();
+        document.getElementById('editIndex').value = -1;
+        document.getElementById('cancelEdit').classList.add('hidden');
+    }
+
+    document.getElementById('cancelEdit').addEventListener('click', clearForm);
+
+    document.getElementById('studentTableBody').addEventListener('click', function (e) {
+        if (e.target.tagName !== 'BUTTON') return;
+
+        const action = e.target.getAttribute('data-action');
+        const index  = parseInt(e.target.getAttribute('data-index'), 10);
+        let students = loadStudents();
+
+        if (action === 'delete') {
+            if (confirm('Biztosan törölni szeretnéd?')) {
+                students.splice(index, 1);
+                saveStudents(students);
+                renderTable();
+                clearForm();
+            }
+        } else if (action === 'edit') {
+            const s = students[index];
+            document.getElementById('name').value   = s.name;
+            document.getElementById('year').value   = s.year;
+            document.getElementById('major').value  = s.major;
+            document.getElementById('email').value  = s.email;
+            document.getElementById('neptun').value = s.neptun;
+            document.getElementById('editIndex').value = index;
+            document.getElementById('cancelEdit').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+
+    document.getElementById('search').addEventListener('input', renderTable);
+    document.getElementById('sort').addEventListener('change', renderTable);
+
+    document.getElementById('exportJson').addEventListener('click', function () {
+        const students = loadStudents();
+        const json = JSON.stringify(students, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url  = URL.createObjectURL(blob);
+        const a    = document.createElement('a');
+        a.href = url;
+        a.download = 'hallgatok.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('importJson').addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        const info = document.getElementById('importInfo');
+
+        if (!file) {
+            info.textContent = 'Nincs fájl kiválasztva';
+            return;
+        }
+
+        info.textContent = 'Kiválasztott fájl: ' + file.name;
+
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+            try {
+                const data = JSON.parse(evt.target.result);
+                if (!Array.isArray(data)) {
+                    alert('Hibás JSON formátum (nem tömb)!');
+                    return;
+                }
+                saveStudents(data);
+                clearForm();
+                renderTable();
+                alert('Sikeres import!');
+            } catch (err) {
+                console.error(err);
+                alert('Hibás JSON fájl!');
+            }
+        };
+        reader.readAsText(file, 'utf-8');
+    });
+
+    document.addEventListener('DOMContentLoaded', renderTable);
+</script>
+</body>
+</html>
+
+<!-- ChatGPT note: The above is the completed code for A86ANU_LocStoreDB.html based on the provided context. The necessary changes have been made to reflect the correct titles, storage keys, and other relevant details. -->

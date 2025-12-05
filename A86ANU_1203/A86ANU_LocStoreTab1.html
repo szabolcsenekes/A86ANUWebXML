@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>A86ANU Órarend JSON - Táblázat</title>
+    <style>
+        * { box-sizing: border-box; font-family: Arial, sans-serif; }
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #e9e9e9;
+        }
+        .wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #f5f5f5;
+            border: 1px solid #ccc;
+            padding: 15px 20px 25px;
+        }
+        h1 {
+            margin-top: 0;
+            font-size: 22px;
+        }
+        .top-bar {
+            margin-bottom: 10px;
+        }
+        input[type="file"] {
+            margin-right: 10px;
+        }
+        .btn {
+            padding: 4px 10px;
+            font-size: 13px;
+            border-radius: 3px;
+            border: 1px solid #777;
+            background: #f0f0f0;
+            cursor: pointer;
+        }
+        .btn:hover { background: #e0e0e0; }
+
+        label {
+            font-weight: bold;
+        }
+
+        #searchBox {
+            width: 250px;
+            padding: 4px 6px;
+            margin-top: 10px;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: #fff;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 6px 8px;
+            text-align: left;
+            font-size: 14px;
+        }
+        thead {
+            background: #e0e0e0;
+            font-weight: bold;
+        }
+        .msg {
+            margin-top: 12px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <h1>A86ANU Órarend JSON - Táblázat</h1>
+
+    <div class="top-bar">
+        <input type="file" id="fileInput" accept="application/json">
+        <button class="btn" id="loadFromLSBtn">LocalStorage betöltése</button>
+    </div>
+
+    <div>
+        <label for="searchBox">Keresés tárgy szerint:</label>
+        <input type="text" id="searchBox" placeholder="pl. Mesterséges intelligencia alapok">
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Tárgy</th>
+            <th>Nap</th>
+            <th>Tól</th>
+            <th>Ig</th>
+            <th>Helyszín</th>
+            <th>Oktató</th>
+            <th>Szak</th>
+        </tr>
+        </thead>
+        <tbody id="tableBody">
+        <!-- JS tölti fel -->
+        </tbody>
+    </table>
+
+    <div id="msg" class="msg">Nincs betöltött órarend. Válassz JSON fájlt vagy töltsd be a LocalStorage-ból.</div>
+</div>
+
+<script>
+    const STORAGE_KEY = 'orarendA86ANU_json';
+
+    function parseLessonsFromJson(jsonText) {
+        try {
+            const data = JSON.parse(jsonText);
+            const rootKey = Object.keys(data)[0];
+            if (!rootKey || !data[rootKey] || !Array.isArray(data[rootKey].ora)) {
+                alert('Hibás órarend JSON struktúra!');
+                return null;
+            }
+            return data[rootKey].ora;
+        } catch (e) {
+            alert('Hibás JSON fájl!');
+            console.error(e);
+            return null;
+        }
+    }
+
+    function saveToLocalStorage(jsonText) {
+        localStorage.setItem(STORAGE_KEY, jsonText);
+    }
+
+    function loadLessonsFromLocalStorage() {
+        const jsonText = localStorage.getItem(STORAGE_KEY);
+        if (!jsonText) {
+            alert('Nincs órarend a LocalStorage-ban!');
+            return null;
+        }
+        return parseLessonsFromJson(jsonText);
+    }
+
+    function renderTable(lessons) {
+        const tbody = document.getElementById('tableBody');
+        const msgDiv = document.getElementById('msg');
+        tbody.innerHTML = '';
+
+        const searchText = document.getElementById('searchBox').value.toLowerCase().trim();
+        const filtered = !lessons ? [] :
+            lessons.filter(l => l.targy.toLowerCase().includes(searchText));
+
+        if (!filtered.length) {
+            msgDiv.textContent = 'Nincs megjeleníthető óra.';
+            return;
+        } else {
+            msgDiv.textContent = '';
+        }
+
+        filtered.forEach(l => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${l.targy}</td>
+                <td>${l.idopont.nap}</td>
+                <td>${l.idopont.tol}</td>
+                <td>${l.idopont.ig}</td>
+                <td>${l.helyszin}</td>
+                <td>${l.oktato}</td>
+                <td>${l.szak}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    let currentLessons = null;
+
+    document.getElementById('fileInput').addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+            const text = evt.target.result;
+            const lessons = parseLessonsFromJson(text);
+            if (lessons) {
+                saveToLocalStorage(text);
+                currentLessons = lessons;
+                renderTable(currentLessons);
+            }
+        };
+        reader.readAsText(file, 'utf-8');
+    });
+
+    document.getElementById('loadFromLSBtn').addEventListener('click', function () {
+        const lessons = loadLessonsFromLocalStorage();
+        if (lessons) {
+            currentLessons = lessons;
+            renderTable(currentLessons);
+        }
+    });
+
+    document.getElementById('searchBox').addEventListener('input', function () {
+        if (currentLessons) renderTable(currentLessons);
+    });
+</script>
+</body>
+</html>
+
+<!-- ChatGPT note: The above is the completed code for A86ANU_LocStoreTab1.html based on the provided context and comparison with A86ANU_LocStoreList.html. The necessary changes have been made to reflect the correct titles, storage keys, and other relevant details. -->

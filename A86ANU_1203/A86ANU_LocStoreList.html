@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>A86ANU Órarend JSON - Lista</title>
+    <style>
+        * { box-sizing: border-box; font-family: Arial, sans-serif; }
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #e9e9e9;
+        }
+        .wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #f5f5f5;
+            border: 1px solid #ccc;
+            padding: 15px 20px 25px;
+        }
+        h1 {
+            margin-top: 0;
+            font-size: 22px;
+        }
+        .top-bar {
+            margin-bottom: 10px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="file"] {
+            margin-right: 10px;
+        }
+        .btn {
+            padding: 4px 10px;
+            font-size: 13px;
+            border-radius: 3px;
+            border: 1px solid #777;
+            background: #f0f0f0;
+            cursor: pointer;
+        }
+        .btn:hover { background: #e0e0e0; }
+        #searchBox {
+            width: 250px;
+            padding: 4px 6px;
+            margin-top: 10px;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+        }
+        #lessonsContainer {
+            margin-top: 15px;
+            background: #fff;
+            border: 1px solid #ccc;
+            min-height: 150px;
+            padding: 10px 15px;
+            overflow-y: auto;
+        }
+        .lesson {
+            border-left: 4px solid #2f6de0;
+            padding-left: 10px;
+            margin-bottom: 12px;
+        }
+        .lesson-title {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .lesson-line {
+            font-size: 14px;
+        }
+        .msg {
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <h1>A86ANU Órarend JSON - Lista</h1>
+
+    <div class="top-bar">
+        <input type="file" id="fileInput" accept="application/json">
+        <button class="btn" id="loadFromLSBtn">LocalStorage betöltése</button>
+    </div>
+
+    <div>
+        <label for="searchBox">Keresés tárgy szerint:</label>
+        <input type="text" id="searchBox" placeholder="pl. WebXML">
+    </div>
+
+    <div id="lessonsContainer">
+        <span class="msg">Nincs betöltött órarend. Válassz JSON fájlt vagy töltsd be a LocalStorage-ból.</span>
+    </div>
+</div>
+
+<script>
+    const STORAGE_KEY = 'orarendA86ANU_json';
+
+    function parseLessonsFromJson(jsonText) {
+        try {
+            const data = JSON.parse(jsonText);
+            const rootKey = Object.keys(data)[0];
+            if (!rootKey || !data[rootKey] || !Array.isArray(data[rootKey].ora)) {
+                alert('Hibás órarend JSON struktúra!');
+                return null;
+            }
+            return data[rootKey].ora;
+        } catch (e) {
+            alert('Hibás JSON fájl!');
+            console.error(e);
+            return null;
+        }
+    }
+
+    function saveToLocalStorage(jsonText) {
+        localStorage.setItem(STORAGE_KEY, jsonText);
+    }
+
+    function loadLessonsFromLocalStorage() {
+        const jsonText = localStorage.getItem(STORAGE_KEY);
+        if (!jsonText) {
+            alert('Nincs órarend a LocalStorage-ban!');
+            return null;
+        }
+        return parseLessonsFromJson(jsonText);
+    }
+
+    function renderLessons(lessons) {
+        const container = document.getElementById('lessonsContainer');
+        container.innerHTML = '';
+
+        const searchText = document.getElementById('searchBox').value.toLowerCase().trim();
+        const filtered = !lessons ? [] :
+            lessons.filter(l => l.targy.toLowerCase().includes(searchText));
+
+        if (!filtered.length) {
+            container.innerHTML = '<span class="msg">Nincs megjeleníthető óra.</span>';
+            return;
+        }
+
+        filtered.forEach(l => {
+            const div = document.createElement('div');
+            div.className = 'lesson';
+            div.innerHTML = `
+                <div class="lesson-title">${l.targy}</div>
+                <div class="lesson-line">Nap: ${l.idopont.nap}</div>
+                <div class="lesson-line">Idő: ${l.idopont.tol} - ${l.idopont.ig}</div>
+                <div class="lesson-line">Helyszín: ${l.helyszin}</div>
+                <div class="lesson-line">Oktató: ${l.oktato}</div>
+                <div class="lesson-line">Szak: ${l.szak}</div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    let currentLessons = null;
+
+    document.getElementById('fileInput').addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+            const text = evt.target.result;
+            const lessons = parseLessonsFromJson(text);
+            if (lessons) {
+                saveToLocalStorage(text);
+                currentLessons = lessons;
+                renderLessons(currentLessons);
+            }
+        };
+        reader.readAsText(file, 'utf-8');
+    });
+
+    document.getElementById('loadFromLSBtn').addEventListener('click', function () {
+        const lessons = loadLessonsFromLocalStorage();
+        if (lessons) {
+            currentLessons = lessons;
+            renderLessons(currentLessons);
+        }
+    });
+
+    document.getElementById('searchBox').addEventListener('input', function () {
+        if (currentLessons) renderLessons(currentLessons);
+    });
+</script>
+</body>
+</html>
+
+<!-- ChatGPT note: The above is the completed code for A86ANU_LocStoreList.html based on the provided context and comparison with A86ANU_LocStoreTab1.html. The necessary changes have been made to reflect the correct titles, storage keys, and other relevant details. -->
